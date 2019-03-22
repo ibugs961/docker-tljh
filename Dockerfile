@@ -5,7 +5,7 @@ ENV HOME=/
 RUN apt-get uppdate && \
     apt-get upgrade -y && \
     apt-get install sudo python3.6 git curl -y && \
-    curl https://raw.githubusercontent.com/jupyterhub/the-littlest-jupyterhub/master/bootstrap/bootstrap.py | sudo -E python3 - --admin hubAdmin && \
+    curl https://raw.githubusercontent.com/jupyterhub/the-littlest-jupyterhub/master/bootstrap/bootstrap.py | sudo -E python3 - --admin hubAdmin
     
 EXPOSE 8000
 
