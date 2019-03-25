@@ -19,6 +19,11 @@ RUN mkdir -p /etc/sudoers.d
 
 RUN systemctl set-default multi-user.target
 
+STOPSIGNAL SIGRTMIN+3
+
+# Set up image to be useful out of the box for development & CI
+ENV PATH=/opt/tljh/hub/bin:${PATH}
+
 RUN curl https://raw.githubusercontent.com/jupyterhub/the-littlest-jupyterhub/master/bootstrap/bootstrap.py > bootstrap.py && \
     /usr/bin/python3.6 bootstrap.py --admin hubAdmin
     
