@@ -5,7 +5,7 @@ ENV HOME=/
 RUN apt-get update && \
     apt-get upgrade -y
 
-RUN apt-get install systemd sudo python3.6 git curl -y
+RUN apt-get install systemd curl git sudo python3.6 -y
 
 RUN find /etc/systemd/system \
     /lib/systemd/system \
@@ -15,14 +15,8 @@ RUN find /etc/systemd/system \
     -not -name '*systemd-user-sessions*' \
     -exec rm \{} \;
 
-RUN mkdir -p /etc/sudoers.d
-
-RUN systemctl set-default multi-user.target
-
-STOPSIGNAL SIGRTMIN+3
-
-# Set up image to be useful out of the box for development & CI
-ENV PATH=/opt/tljh/hub/bin:${PATH}
+RUN mkdir -p /etc/sudoers.d && \
+    systemctl set-default multi-user.target
 
 RUN curl https://raw.githubusercontent.com/jupyterhub/the-littlest-jupyterhub/master/bootstrap/bootstrap.py > bootstrap.py && \
     /usr/bin/python3.6 bootstrap.py --admin hubAdmin
